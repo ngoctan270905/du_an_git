@@ -38,22 +38,32 @@ class Admin {
         }
     }
 
-    public function updateAdmin($id, $username, $password, $email) {
+    public function updateAdmin($id, $username, $email, $password = null) {
         try {
             if ($password) {
                 $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-                $sql = "UPDATE admins SET username = ?, password = ?, email = ? WHERE id = ?";
+                $sql = "UPDATE admins SET username = ?, email = ?, password = ? WHERE id = ?";
                 $stmt = $this->db->prepare($sql);
-                return $stmt->execute([$username, $hashed_password, $email, $id]);
+                $result = $stmt->execute([$username, $email, $hashed_password, $id]);
             } else {
                 $sql = "UPDATE admins SET username = ?, email = ? WHERE id = ?";
                 $stmt = $this->db->prepare($sql);
-                return $stmt->execute([$username, $email, $id]);
+                $result = $stmt->execute([$username, $email, $id]);
             }
+    
+            if ($result) {
+                error_log("Cập nhật admin thành công: ID $id, Username: $username, Email: $email");
+            } else {
+                error_log("Cập nhật admin thất bại: ID $id, Username: $username, Email: $email");
+            }
+    
+            return $result;
         } catch (PDOException $e) {
+            error_log("Lỗi SQL khi cập nhật admin: " . $e->getMessage());
             return false;
         }
     }
+    
 
     public function deleteAdmin($id) {
         try {
