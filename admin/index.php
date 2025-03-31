@@ -75,6 +75,7 @@ match ($act) {
     'product-view' => (new ProductController($db))->view(),
 
     // Accounts
+    
     'account-list-admins' => (new AccountController($db))->listAdmins(),
     'account-list-clients' => (new AccountController($db))->listClients(),
     'account-add-admin' => (new AccountController($db))->addAdmin(),

@@ -54,25 +54,39 @@ class AccountController {
             header('Location: index.php?act=login');
             exit;
         }
+    
         $id = $_GET['id'] ?? 0;
         $admin = $this->adminModel->getAdminById($id);
+        
         if (!$admin) {
             header('Location: index.php?act=account-list-admins');
             exit;
         }
+    
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $id = $_POST['id']; // Lấy ID từ form
             $username = $_POST['username'];
             $email = $_POST['email'];
             $password = !empty($_POST['password']) ? $_POST['password'] : null;
-            if ($this->adminModel->updateAdmin($id, $username, $email, $password)) {
-                header('Location: index.php?act=account-list-admins');
-                exit;
+            $confirm_password = !empty($_POST['confirm_password']) ? $_POST['confirm_password'] : null;
+    
+            // Kiểm tra nếu nhập mật khẩu mới nhưng xác nhận không khớp
+            if ($password && $password !== $confirm_password) {
+                $error = "Mật khẩu xác nhận không khớp!";
             } else {
-                $error = "Cập nhật admin thất bại!";
+                // Cập nhật thông tin admin
+                if ($this->adminModel->updateAdmin($id, $username, $email, $password)) {
+                    header('Location: index.php?act=account-list-admins&success=1');
+                    exit;
+                } else {
+                    $error = "Cập nhật admin thất bại!";
+                }
             }
         }
+    
         require_once VIEWS_PATH . '/account/account-edit-admin.php';
     }
+    
 
     public function deleteAdmin() {
         if (!isset($_SESSION['admin'])) {
