@@ -1,0 +1,11 @@
+RewriteEngine On
+RewriteBase /du_an_git-main/du_an_git-main/
+
+# Redirect to client folder
+RewriteCond %{REQUEST_URI} ^/$
+RewriteRule ^$ client/ [L]
+
+# Handle requests for client folder
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^client/(.*)$ client/$1 [L] 
