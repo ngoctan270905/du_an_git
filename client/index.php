@@ -14,7 +14,7 @@
             <nav class="navbar navbar-expand-lg navbar-dark">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="index.php">
-                        <img src="https://via.placeholder.com/150x40" alt="Logo" height="40">
+                        <img src="./images/logo/logo1.jpg" alt="TechStore Logo" style="height: 100px; width: auto; object-fit: contain;">
                     </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                         <span class="navbar-toggler-icon"></span>
