@@ -8,6 +8,8 @@ require_once './commons/function.php'; // Hàm hỗ trợ
 require_once './controllers/HomeController.php';
 
 // Require toàn bộ file Models
+require_once './models/Category.php';
+require_once './models/Product.php';
 
 // Route
 $act = $_GET['act'] ?? '/';
@@ -17,4 +19,8 @@ $act = $_GET['act'] ?? '/';
 match ($act) {
     // Trang chủ
     '/'                 => (new HomeController())->index(),
+    'home'              => (new HomeController())->index(),
+    'category'          => (new HomeController())->viewCategory($_GET['id'] ?? 0),
+    'search'            => (new HomeController())->search(),
+    default             => (new HomeController())->index(),
 };
