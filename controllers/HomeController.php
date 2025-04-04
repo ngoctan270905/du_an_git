@@ -3,6 +3,6 @@
 class HomeController
 {
     public function index() {
-        echo "Đây là client";
+        echo "Đây là client hjhj";
     }
 }
