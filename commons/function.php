@@ -21,6 +21,11 @@ function connectDB() {
         die("Connection failed: " . $e->getMessage());
     }
 }
+// Hàm load view
+function loadView($view, $data = []) {
+    extract($data);
+    require_once "views/$view.php";
+}
 
 function uploadFile($file, $folderUpdate){
     // Tạo thư mục uploads nếu chưa tồn tại
