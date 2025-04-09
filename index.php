@@ -2,31 +2,35 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-// Require file Common
-require_once './commons/env.php'; // Khai báo biến môi trường
-require_once './commons/function.php'; // Hàm hỗ trợ
+require_once './commons/env.php';
+require_once './commons/function.php';
 
-// Require toàn bộ file Controllers
 require_once './controllers/HomeController.php';
 require_once './controllers/ProductController.php';
 require_once './controllers/UserController.php';
+require_once './controllers/AuthController.php';
 
-// Require toàn bộ file Models
+session_start();
+require_once "config/database.php";
 
-// Route
-$act = $_GET['act'] ?? '/';
+$database = new Database();
+$db = $database->getConnection();
 
-// Để bảo bảo tính chất chỉ gọi 1 hàm Controller để xử lý request thì mình sử dụng match
+$act = isset($_GET['act']) ? $_GET['act'] : '';
 
-match ($act) {
-    // Trang chủ
-    '/' => (new HomeController())->index(),
-    // Sản phẩm
-    'product_detail' => (new ProductController())->detail(),
-    // Authentication
-    'login' => (new UserController())->login(),
-    'register' => (new UserController())->register(),
-    'logout' => (new UserController())->logout(),
-    // Mặc định là trang chủ
-    default => (new HomeController())->index(),
-};
+$authController = new AuthController($db);
+
+switch ($act) {
+    case 'login':
+        $authController->login();
+        break;
+    case 'register':
+        $authController->register();
+        break;
+    case 'logout':
+        $authController->logout();
+        break;
+    default:
+        require_once 'views/home.php';
+        break;
+}

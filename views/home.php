@@ -10,13 +10,13 @@
         </div>
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img src="https://via.placeholder.com/1200x400" class="d-block w-100" alt="Banner 1">
+                <img src="public/img/banner-1.webp" class="d-block w-100" alt="Banner 1">
             </div>
             <div class="carousel-item">
-                <img src="https://via.placeholder.com/1200x400" class="d-block w-100" alt="Banner 2">
+                <img src="public/img/banner-2.webp" class="d-block w-100" alt="Banner 2">
             </div>
             <div class="carousel-item">
-                <img src="https://via.placeholder.com/1200x400" class="d-block w-100" alt="Banner 3">
+                <img src="public/img/banner-3.webp" class="d-block w-100" alt="Banner 3">
             </div>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -42,7 +42,7 @@
         foreach ($categories as $category): ?>
             <div class="col-md-3 mb-3">
                 <div class="card h-100">
-                    <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="<?php echo htmlspecialchars($category['name']); ?>">
+                    <img src="public/img/banner-4.webp" class="card-img-top" alt="<?php echo htmlspecialchars($category['name']); ?>">
                     <div class="card-body">
                         <h5 class="card-title"><?php echo htmlspecialchars($category['name']); ?></h5>
                         <a href="http://localhost/du_an_git/du_an_git/index.php?act=category&id=<?php echo $category['id']; ?>" class="btn btn-primary">Xem sản phẩm</a>
@@ -75,14 +75,14 @@
                         <h5 class="card-title"><?php echo htmlspecialchars($product['name']); ?></h5>
                         <p class="card-text"><?php echo htmlspecialchars($product['category_name']); ?></p>
                         <div class="price">
-                            <?php if ($product['discount'] > 0): ?>
+                            <?php if ($product['discount_price'] > 0): ?>
                                 <span class="discount-price"><?php echo number_format($product['price']); ?>đ</span>
-                                <span><?php echo number_format($product['price'] * (1 - $product['discount']/100)); ?>đ</span>
+                                <span><?php echo number_format($product['price'] * (1 - $product['discount_price']/100)); ?>đ</span>
                             <?php else: ?>
                                 <span><?php echo number_format($product['price']); ?>đ</span>
                             <?php endif; ?>
                         </div>
-                        <a href="http://localhost/du_an_git/du_an_git/index.php?act=product_detail&id=<?php echo $product['id']; ?>" class="btn btn-primary mt-2">Xem chi tiết</a>
+                        <a href="index.php?act=product_detail&id=<?php echo $product['id']; ?>" class="btn btn-primary mt-2">Xem chi tiết</a>
                     </div>
                 </div>
             </div>

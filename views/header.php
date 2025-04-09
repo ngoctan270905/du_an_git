@@ -1,6 +1,3 @@
-<?php
-session_start();
-?>
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -46,6 +43,16 @@ session_start();
             color: gray;
             font-size: 0.9rem;
         }
+        .user-dropdown {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .user-dropdown img {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+        }
     </style>
 </head>
 <body>
@@ -83,19 +90,19 @@ session_start();
                 <div class="d-flex align-items-center">
                     <?php if (isset($_SESSION['user'])): ?>
                         <div class="dropdown">
-                            <button class="btn btn-link nav-link dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                                <?php echo htmlspecialchars($_SESSION['user']['name']); ?>
+                            <button class="btn btn-link nav-link dropdown-toggle user-dropdown" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                <span><?php echo htmlspecialchars($_SESSION['user']['fullname']); ?></span>
                             </button>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                                <li><a class="dropdown-item" href="#">Tài khoản của tôi</a></li>
-                                <li><a class="dropdown-item" href="#">Đơn hàng</a></li>
+                                <li><a class="dropdown-item" href="#"><i class="bi bi-person"></i> Tài khoản của tôi</a></li>
+                                <li><a class="dropdown-item" href="#"><i class="bi bi-bag"></i> Đơn hàng</a></li>
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="index.php?act=logout">Đăng xuất</a></li>
+                                <li><a class="dropdown-item" href="index.php?act=logout"><i class="bi bi-box-arrow-right"></i> Đăng xuất</a></li>
                             </ul>
                         </div>
                     <?php else: ?>
-                        <a class="nav-link me-3" href="index.php?act=login">Đăng nhập</a>
-                        <a class="nav-link" href="index.php?act=register">Đăng ký</a>
+                        <a class="nav-link me-3" href="index.php?act=login"><i class="bi bi-box-arrow-in-right"></i> Đăng nhập</a>
+                        <a class="nav-link" href="index.php?act=register"><i class="bi bi-person-plus"></i> Đăng ký</a>
                     <?php endif; ?>
                 </div>
             </div>
@@ -110,8 +117,12 @@ session_start();
     <?php if (isset($_SESSION['errors'])): ?>
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
             <?php 
-            foreach ($_SESSION['errors'] as $error) {
-                echo $error . '<br>';
+            if (is_array($_SESSION['errors'])) {
+                foreach ($_SESSION['errors'] as $error) {
+                    echo $error . '<br>';
+                }
+            } else {
+                echo $_SESSION['errors'];
             }
             unset($_SESSION['errors']); 
             ?>

@@ -6,8 +6,6 @@ class UserController {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $email = $_POST['email'] ?? '';
             $password = $_POST['password'] ?? '';
-
-            // Validate input
             $errors = validateLogin($email, $password);
             
             if (empty($errors)) {
@@ -18,7 +16,6 @@ class UserController {
                     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
                     if ($user && password_verify($password, $user['password'])) {
-                        // Xóa mật khẩu trước khi lưu vào session
                         unset($user['password']);
                         $_SESSION['user'] = $user;
                         $_SESSION['success'] = 'Đăng nhập thành công!';
@@ -32,9 +29,7 @@ class UserController {
                 }
             }
 
-            // Lưu lỗi vào session để hiển thị trên form
             $_SESSION['errors'] = $errors;
-            // Lưu giá trị đã nhập để hiển thị lại trên form
             $_SESSION['old'] = ['email' => $email];
             header('Location: http://localhost/du_an_git/du_an_git/index.php?act=login');
             exit;
@@ -50,22 +45,18 @@ class UserController {
             $password = $_POST['password'] ?? '';
             $confirm_password = $_POST['confirm_password'] ?? '';
 
-            // Validate input
             $errors = validateRegister($name, $email, $password, $confirm_password);
             
             if (empty($errors)) {
                 $db = connectDB();
                 
-                // Kiểm tra email đã tồn tại chưa
                 $stmt = $db->prepare("SELECT id FROM users WHERE email = ?");
                 $stmt->execute([$email]);
                 if ($stmt->fetch()) {
                     $errors['email'] = 'Email đã tồn tại';
                 } else {
-                    // Mã hóa mật khẩu
                     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-                    // Thêm người dùng mới
                     $stmt = $db->prepare("INSERT INTO users (name, email, password) VALUES (?, ?, ?)");
                     if ($stmt->execute([$name, $email, $hashed_password])) {
                         $_SESSION['success'] = 'Đăng ký thành công! Vui lòng đăng nhập';
@@ -77,9 +68,7 @@ class UserController {
                 }
             }
 
-            // Lưu lỗi vào session để hiển thị trên form
             $_SESSION['errors'] = $errors;
-            // Lưu giá trị đã nhập để hiển thị lại trên form
             $_SESSION['old'] = [
                 'name' => $name,
                 'email' => $email
