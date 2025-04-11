@@ -21,7 +21,7 @@ require_once 'views/layouts/sidebar.php';
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                     <h1 class="h2">Quản lý Tài khoản Admin</h1>
                     <a href="index.php?act=account-add-admin" class="btn btn-primary">
-                        <i class="bi bi-plus-circle"></i> Thêm Admin mới
+                        <i class="bi bi-plus-circle"></i> Đăng ký tài khoản Admin
                     </a>
                 </div>
 

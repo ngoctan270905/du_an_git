@@ -7,7 +7,7 @@ require_once VIEWS_PATH . '/layouts/sidebar.php';
 <!-- Main content -->
 <main>
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Thêm Admin mới</h1>
+        <h1 class="h2">Đăng ký Admin</h1>
     </div>
 
     <?php if (isset($error)): ?>
@@ -38,7 +38,7 @@ require_once VIEWS_PATH . '/layouts/sidebar.php';
                         <i class="bi bi-arrow-left"></i> Quay lại
                     </a>
                     <button type="submit" class="btn btn-primary">
-                        <i class="bi bi-plus-circle"></i> Thêm Admin
+                        <i class="bi bi-plus-circle"></i> Đăng ký
                     </button>
                 </div>
             </form>

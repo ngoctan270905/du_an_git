@@ -38,7 +38,7 @@ require_once VIEWS_PATH . '/layouts/sidebar.php';
         <div class="tab-pane fade show active" id="admin" role="tabpanel">
             <div class="d-flex justify-content-end mb-3">
                 <a href="index.php?act=account-add-admin" class="btn btn-primary">
-                    <i class="bi bi-plus-circle"></i> Thêm Admin mới
+                    <i class="bi bi-plus-circle"></i> Đăng ký tài khoản Admin
                 </a>
             </div>
             <div class="card">
